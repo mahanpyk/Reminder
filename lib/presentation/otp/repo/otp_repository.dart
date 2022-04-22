@@ -3,7 +3,7 @@ import 'package:reminder/app/base/base_repository.dart';
 
 //todo
 abstract class OTPRepository extends BaseRepository {
-  Future<ApiResult<Map>> otp({
+  Future<ApiResult> otp({
     required String userName,
     required String key,
     required int otp,
@@ -12,7 +12,7 @@ abstract class OTPRepository extends BaseRepository {
 
 class OTPRepositoryImp extends OTPRepository {
   @override
-  Future<ApiResult<Map>> otp({
+  Future<ApiResult> otp({
     required String userName,
     required String key,
     required int otp,
@@ -22,13 +22,11 @@ class OTPRepositoryImp extends OTPRepository {
       parameters: <String, dynamic>{
         'username': userName,
         'key': key,
-        'otp': otp,
+        'otp': otp
       },
-    );
-    if (response == Exception()) {
-      return ApiResult.failure(error: response);
-    } else {
-      return ApiResult.success(data: response);
-    }
+    ).catchError((onError) {
+      return ApiResult.failure(error: onError.message);
+    });
+    return ApiResult.success(data: response);
   }
 }

@@ -8,25 +8,18 @@ abstract class BaseView extends GetView {
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
+  PreferredSizeWidget? appBar(BuildContext context) => null;
 
-  PreferredSizeWidget? appBar(BuildContext context) {
-    return null;
-  }
+  bool safeArea() => true;
 
-  bool safeArea() {
-    return true;
-  }
-
-  bool resizeToAvoidBottomInset() {
-    return false;
-  }
+  bool resizeToAvoidBottomInset() => false;
 
   Widget body(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [annotatedRegion(context),  Container()],
+      children: [annotatedRegion(context), Container()],
     );
   }
 
@@ -50,54 +43,26 @@ abstract class BaseView extends GetView {
         backgroundColor: pageBackgroundColor(),
         key: globalKey,
         appBar: appBar(context),
-        floatingActionButton: floatingActionButton(),
-        floatingActionButtonLocation: floatingActionButtonLocation(),
         body: pageContent(context),
-        bottomNavigationBar: bottomNavigationBar(),
-        drawer: drawer(),
         resizeToAvoidBottomInset: resizeToAvoidBottomInset(),
       ),
     );
   }
 
   Widget pageContent(BuildContext context) {
-    return safeArea()
-        ? SafeArea(
-            child: body(context),
-          )
-        : body(context);
+    return Stack(children: [
+      safeArea() ? SafeArea(child: body(context)) : body(context),
+      Obx(
+        () => progressIndicator().value
+            ? const Center(child: CircularProgressIndicator())
+            : Container(),
+      ),
+    ]);
   }
 
-  Widget showErrorSnackBar(String message) {
-    final snackBar = SnackBar(content: Text(message));
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
-    });
+  Color pageBackgroundColor() => AppColors.background;
 
-    return Container();
-  }
+  Color statusBarColor() => Colors.white;
 
-  Color pageBackgroundColor() {
-    return AppColors.background;
-  }
-
-  Color statusBarColor() {
-    return Colors.white;
-  }
-
-  Widget? floatingActionButton() {
-    return null;
-  }
-
-  Widget? bottomNavigationBar() {
-    return null;
-  }
-
-  Widget? drawer() {
-    return null;
-  }
-
-  FloatingActionButtonLocation? floatingActionButtonLocation() {
-    return FloatingActionButtonLocation.endFloat;
-  }
+  RxBool progressIndicator() => false.obs;
 }

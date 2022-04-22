@@ -79,4 +79,9 @@ class LoginPage extends BaseView {
       ]),
     );
   }
+
+  @override
+  RxBool progressIndicator() {
+    return _controller.isLoading;
+  }
 }

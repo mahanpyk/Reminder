@@ -28,7 +28,7 @@ void main() {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.OTP,
+      initialRoute: Routes.LOGIN,
       defaultTransition: Transition.rightToLeftWithFade,
       getPages: AppPages.pages,
       initialBinding: MainBinding(),

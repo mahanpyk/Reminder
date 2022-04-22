@@ -21,12 +21,13 @@ class OTPPage extends BaseView {
             "کد چهار رقمی ارسال شده به شماره‌ی",
             style: Get.theme.textTheme.bodyText2,
           ),
-          Row(children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
               _controller.phoneNumber ?? "",
               style: Get.theme.textTheme.bodyText2!
-                  .copyWith(color: AppColors.buttonFirstColor),
+                  .copyWith(color: AppColors.buttonFourthColor),
             ),
+            const SizedBox(width: 4),
             Text(
               "را وارد کنید.",
               style: Get.theme.textTheme.bodyText2,
@@ -36,7 +37,8 @@ class OTPPage extends BaseView {
           Directionality(
             textDirection: TextDirection.ltr,
             child: OtpTextField(
-              onCodeChanged: (value) {},
+              onSubmit: (value) => _controller.setOTP(value),
+              // onCodeChanged: (value)=>_controller.setOTP(value),
               textStyle: Get.theme.textTheme.bodyText1,
               margin: const EdgeInsets.symmetric(horizontal: 12),
               numberOfFields: 4,

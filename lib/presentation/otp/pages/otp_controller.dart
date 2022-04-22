@@ -35,6 +35,15 @@ class OTPController extends GetxController {
           snackPosition: SnackPosition.TOP,
         );
       });
+    } else {
+      Get.snackbar(
+        "خطا",
+        "رمز وارد شده اشتباه است.",
+        snackStyle: SnackStyle.GROUNDED,
+        snackPosition: SnackPosition.TOP,
+      );
     }
   }
+
+  setOTP(String value) => otpCode = value;
 }

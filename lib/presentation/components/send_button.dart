@@ -17,7 +17,7 @@ class SendButton extends StatelessWidget {
       child: InkWell(
         radius: 24,
         highlightColor: Colors.transparent,
-        onTap: () => onTap,
+        onTap: () => onTap(),
         child: Container(
           padding: const EdgeInsets.all(16),
           child: Center(

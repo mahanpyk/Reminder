@@ -24,7 +24,7 @@ class _$ApiResultTearOff {
     );
   }
 
-  Failure<T> failure<T>({required Exception error}) {
+  Failure<T> failure<T>({required dynamic error}) {
     return Failure<T>(
       error: error,
     );
@@ -39,19 +39,19 @@ mixin _$ApiResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(Exception error) failure,
+    required TResult Function(dynamic error) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(Exception error)? failure,
+    TResult Function(dynamic error)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(Exception error)? failure,
+    TResult Function(dynamic error)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,7 +155,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(Exception error) failure,
+    required TResult Function(dynamic error) failure,
   }) {
     return success(data);
   }
@@ -164,7 +164,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(Exception error)? failure,
+    TResult Function(dynamic error)? failure,
   }) {
     return success?.call(data);
   }
@@ -173,7 +173,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(Exception error)? failure,
+    TResult Function(dynamic error)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -227,7 +227,8 @@ abstract class Success<T> implements ApiResult<T> {
 abstract class $FailureCopyWith<T, $Res> {
   factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) then) =
       _$FailureCopyWithImpl<T, $Res>;
-  $Res call({Exception error});
+
+  $Res call({dynamic error});
 }
 
 /// @nodoc
@@ -247,7 +248,7 @@ class _$FailureCopyWithImpl<T, $Res> extends _$ApiResultCopyWithImpl<T, $Res>
       error: error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as Exception,
+              as dynamic,
     ));
   }
 }
@@ -258,7 +259,7 @@ class _$Failure<T> implements Failure<T> {
   const _$Failure({required this.error});
 
   @override
-  final Exception error;
+  final dynamic error;
 
   @override
   String toString() {
@@ -286,7 +287,7 @@ class _$Failure<T> implements Failure<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(Exception error) failure,
+    required TResult Function(dynamic error) failure,
   }) {
     return failure(error);
   }
@@ -295,7 +296,7 @@ class _$Failure<T> implements Failure<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(Exception error)? failure,
+    TResult Function(dynamic error)? failure,
   }) {
     return failure?.call(error);
   }
@@ -304,7 +305,7 @@ class _$Failure<T> implements Failure<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(Exception error)? failure,
+    TResult Function(dynamic error)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -346,9 +347,10 @@ class _$Failure<T> implements Failure<T> {
 }
 
 abstract class Failure<T> implements ApiResult<T> {
-  const factory Failure({required Exception error}) = _$Failure<T>;
+  const factory Failure({required dynamic error}) = _$Failure<T>;
 
-  Exception get error;
+  dynamic get error;
+
   @JsonKey(ignore: true)
   $FailureCopyWith<T, Failure<T>> get copyWith =>
       throw _privateConstructorUsedError;

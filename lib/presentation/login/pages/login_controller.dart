@@ -10,11 +10,13 @@ class LoginController extends GetxController {
   final TextEditingController phoneTextEditingController =
       TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  var isLoading = false.obs;
 
   void onTapButton() async {
     if (phoneNumberValidator(phoneTextEditingController.text)) {
       final response =
           await _repository.login(userName: phoneTextEditingController.text);
+      isLoading(true);
       response.when(success: (data) {
         final String key = data['key'];
         Get.toNamed(Routes.OTP, arguments: {
@@ -29,6 +31,7 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.TOP,
         );
       });
+      isLoading(false);
     }
     formKey.currentState?.validate();
   }
